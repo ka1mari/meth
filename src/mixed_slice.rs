@@ -17,10 +17,7 @@ macro_rules! mixed_slice_ext {
             )*
         }
 
-        impl<T> MixedSliceExt<T> for [T]
-        where
-            T: std::fmt::Debug,
-        {
+        impl<T> MixedSliceExt<T> for [T] {
             $(
                 #[inline]
                 fn $fn<const LANES: usize>(&mut self, other: &[T])

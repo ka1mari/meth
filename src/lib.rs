@@ -1,6 +1,6 @@
 #![feature(const_trait_impl)]
 #![feature(portable_simd)]
-//#![no_std]
+#![no_std]
 
 use core::mem;
 
