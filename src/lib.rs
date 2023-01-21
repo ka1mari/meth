@@ -1,11 +1,15 @@
 #![feature(const_trait_impl)]
 #![feature(portable_simd)]
-#![no_std]
+//#![no_std]
 
 use core::mem;
 
+pub use crate::mixed_slice::MixedSliceExt;
+pub use crate::scalar_slice::ScalarSliceExt;
 pub use crate::simd_slice::SimdSliceExt;
 
+mod mixed_slice;
+mod scalar_slice;
 mod simd_slice;
 
 /// Determine the nearest supported lane size for the provided element.
@@ -31,7 +35,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn validate_lanes() {
+    fn lanes() {
         assert_eq!(determine_lanes::<u8>(0), 0);
         assert_eq!(determine_lanes::<u8>(1), 1);
 

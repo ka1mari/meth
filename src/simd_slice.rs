@@ -54,3 +54,19 @@ simd_slice_ext! {
     simd_shl, ShlAssign, <<=;
     simd_shr, ShrAssign, >>=;
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn simd_ops() {
+        let mut x = [Simd::from([1.0; 4]); 4];
+        let y = [Simd::from([2.0; 4]); 4];
+        let z = [Simd::from([3.0; 4]); 4];
+
+        x.simd_add(&y);
+
+        assert_eq!(x, z);
+    }
+}
