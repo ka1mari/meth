@@ -7,10 +7,12 @@ use core::mem;
 pub use crate::mixed_slice::MixedSliceExt;
 pub use crate::scalar_slice::ScalarSliceExt;
 pub use crate::simd_slice::SimdSliceExt;
+pub use crate::slice::SliceExt;
 
 mod mixed_slice;
 mod scalar_slice;
 mod simd_slice;
+mod slice;
 
 /// Determine the nearest supported lane size for the provided element.
 pub const fn determine_lanes<T>(mut lanes: usize) -> usize {
