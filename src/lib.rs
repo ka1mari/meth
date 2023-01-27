@@ -3,7 +3,7 @@
 #![feature(portable_simd)]
 #![feature(repr_simd)]
 #![feature(slice_as_chunks)]
-//#![no_std]
+#![no_std]
 
 use core::{hint, iter, mem, ops, simd::SimdElement};
 
@@ -76,7 +76,7 @@ macro_rules! slice_ext {
             $(
                 fn $fn(&mut self, other: &[T])
                 where
-                    T: std::fmt::Debug + ops::$trait;
+                    T: ops::$trait;
             )*
         }
 
@@ -85,12 +85,12 @@ macro_rules! slice_ext {
                 #[inline]
                 fn $fn(&mut self, other: &[T])
                 where
-                    T: std::fmt::Debug + ops::$trait,
+                    T: ops::$trait,
                 {
                     #[inline]
                     fn $fn<T, const LANES: usize>(this: &mut [T], other: &[T])
                     where
-                        T: std::fmt::Debug + SimdElement + ops::$trait,
+                        T: SimdElement + ops::$trait,
                     {
                         let (this_chunks, this_remainder) = this.as_chunks_mut::<LANES>();
                         let (other_chunks, other_remainder) = other.as_chunks::<LANES>();
@@ -142,15 +142,4 @@ slice_ext! {
 
     shl, ShlAssign, simd_shl, <<=;
     shr, ShrAssign, simd_shr, >>=;
-}
-
-fn main() {
-    use std::array;
-
-    let mut a = array::from_fn::<_, 148, _>(|n| n as u8);
-    let b = array::from_fn::<_, 148, _>(|n| n as u8);
-
-    a.sub(&b);
-
-    println!("{a:?}");
 }
